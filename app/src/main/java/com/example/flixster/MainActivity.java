@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.codepath.asynchttpclient.AsyncHttpClient;
-import com.codepath.asynchttpclient.RequestParams;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 import com.example.flixster.adapter.MovieAdapter;
 import com.example.flixster.models.Movie;
@@ -43,12 +42,11 @@ public class MainActivity extends AppCompatActivity {
         // Set a layout manager on the recycler view
         rvMovies.setLayoutManager(new LinearLayoutManager(this));
 
-        AsyncHttpClient client = new AsyncHttpClient();
-        RequestParams params = new RequestParams();
-        params.put("api_key", config.API_KEY);
-        String url = NOW_PLAYING_URL + "api_key=" + config.API_KEY;
 
-        client.get(url, params, new JsonHttpResponseHandler() { // Request now playing movies -> refactor
+        AsyncHttpClient client = new AsyncHttpClient();
+        String url = NOW_PLAYING_URL + "api_key=" + config.TMDB_API_KEY;
+
+        client.get(url, new JsonHttpResponseHandler() { // Request now playing movies -> refactor
             @Override
             public void onSuccess(int statusCode, Headers headers, JSON json) {
                 Log.d(TAG, "onSuccess");
